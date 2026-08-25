@@ -2,41 +2,38 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { GitBranch, Star, GitFork, Shield, Copy, Check, Search, Terminal, ArrowUpRight, Sparkles, Code2 } from 'lucide-react';
+import { GitPullRequest, GitFork, Star, Terminal, Copy, Check, Search, ShieldCheck, ArrowRight, ArrowUpRight, Radio, Code2, Users } from 'lucide-react';
 
 const TRENDING_REPOS = [
   {
     id: 'vllm',
     repo: 'vllm-project/vllm',
-    desc: 'High-throughput and memory-efficient LLM inference and serving engine.',
     stars: '42.8k',
-    forks: '5.6k',
+    forks: '5.9k',
     license: 'Apache 2.0',
+    tagline: 'High-throughput and memory-efficient LLM inference engine with PagedAttention.',
+    latestCommit: 'feat: add speculative decoding support for Qwen 2.5 (2m ago)',
     cloneCmd: 'git clone https://github.com/vllm-project/vllm.git',
-    latestCommit: 'feat(kernel): add flashinfer FP8 tensor core acceleration',
-    language: 'Python • C++',
   },
   {
     id: 'shadcn',
     repo: 'shadcn/ui',
-    desc: 'Beautifully designed components that you can copy and paste into your apps.',
-    stars: '78.9k',
-    forks: '7.2k',
-    license: 'MIT License',
+    stars: '84.1k',
+    forks: '7.8k',
+    license: 'MIT',
+    tagline: 'Beautifully designed components that you can copy and paste into your apps.',
+    latestCommit: 'fix(registry): support dark-mode variant tokens in Tailwind v4 (14m ago)',
     cloneCmd: 'npx shadcn@latest init',
-    latestCommit: 'fix(dialog): improve portal accessibility & focus trap',
-    language: 'TypeScript • Tailwind',
   },
   {
     id: 'calcom',
     repo: 'calcom/cal.com',
-    desc: 'Scheduling infrastructure for absolutely everyone. Self-hostable Calendly alternative.',
-    stars: '34.2k',
-    forks: '8.1k',
-    license: 'AGPL-3.0',
+    stars: '34.6k',
+    forks: '8.2k',
+    license: 'AGPLv3',
+    tagline: 'Scheduling infrastructure for everyone. The open source Calendly alternative.',
+    latestCommit: 'feat(workflows): AI meeting summary webhook triggers (45m ago)',
     cloneCmd: 'git clone https://github.com/calcom/cal.com.git',
-    latestCommit: 'feat(ai): integrate automated booking reschedule agent',
-    language: 'TypeScript • Next.js',
   },
 ];
 
@@ -55,20 +52,23 @@ export function HeroSection() {
 
   return (
     <section className="osradar-hero">
+      <div className="osradar-ambient-glow" />
+
       <div className="osradar-hero-grid">
-        {/* Left: Open Source Value Prop */}
+        {/* Left: Open Source Radar Value Prop */}
         <div className="osradar-hero-content">
           <div className="osradar-badge">
-            <span className="osradar-pulse-dot" />
-            <span>Real-Time GitHub Trending Radar • 2026</span>
+            <Radio size={14} className="text-purple-400 animate-pulse" />
+            <span>GitHub Trending & Open Source Radar • 2026</span>
+            <span className="osradar-badge-pill">LIVE</span>
           </div>
 
           <h1 className="osradar-title">
-            The Live Radar for <span className="osradar-gradient-text">Permissive Open Source</span> & GitHub Repos.
+            The GitHub Radar for <span className="osradar-gradient-text">Trending Repos</span>, Self-Hosted Stacks & Open AI.
           </h1>
 
           <p className="osradar-lead">
-            Track fastest-growing GitHub repositories, self-hostable SaaS alternatives, open-weights AI architectures, and developer-first libraries.
+            Tracking hyper-growth GitHub repositories, self-hosted software, permissive open-source libraries, and developer-first frameworks.
           </p>
 
           {/* Search Box */}
@@ -84,36 +84,65 @@ export function HeroSection() {
             <input
               type="text"
               name="q"
-              placeholder="Search 1,800+ open source repos, self-hosted tools..."
+              placeholder="Search 1,800+ open-source repos, MIT tools, self-hosted..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="osradar-search-input"
             />
             <button type="submit" className="osradar-search-btn">
-              Scan Repos
+              Explore Radar
             </button>
           </form>
 
-          {/* OSS Category Tags */}
+          {/* Dual Action CTAs */}
+          <div className="osradar-cta-row">
+            <Link href="/category/open-source" className="osradar-primary-btn">
+              Explore 1,800+ Repos <ArrowRight size={15} />
+            </Link>
+            <Link href="/submit" className="osradar-secondary-btn">
+              Submit Open Source Project
+            </Link>
+          </div>
+
+          {/* Social Proof */}
+          <div className="osradar-social-proof">
+            <div className="osradar-avatar-stack">
+              <span className="os-avatar av-1">⭐️</span>
+              <span className="os-avatar av-2">🐙</span>
+              <span className="os-avatar av-3">💻</span>
+              <span className="os-avatar av-4">✨</span>
+            </div>
+            <div className="osradar-proof-text">
+              <div className="osradar-proof-stars">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                ))}
+                <span className="osradar-rating">4.9/5.0</span>
+              </div>
+              <span className="osradar-subtext">Starred by 95,000+ open source maintainers and hackers</span>
+            </div>
+          </div>
+
+          {/* Category Pills */}
           <div className="osradar-tags-row">
             <span className="osradar-tags-label">Licenses:</span>
             <div className="osradar-tags-list">
-              <Link href="/category/developer-tools" className="osradar-tag-pill">
-                <Shield size={12} /> MIT Permissive
+              <Link href="/category/open-source" className="osradar-tag-pill">
+                <Code2 size={12} /> MIT Permissive
               </Link>
-              <Link href="/category/ai" className="osradar-tag-pill">
-                <Code2 size={12} /> Open LLMs
+              <Link href="/category/developer-tools" className="osradar-tag-pill">
+                <GitPullRequest size={12} /> Apache 2.0
               </Link>
               <Link href="/category/productivity" className="osradar-tag-pill">
-                <GitBranch size={12} /> Self-Hosted
+                <Terminal size={12} /> Self-Hosted
               </Link>
-              <Link href="/category/automation" className="osradar-tag-pill">
-                <Sparkles size={12} /> Fast Growing
+              <Link href="/category/ai" className="osradar-tag-pill">
+                <Star size={12} /> Open LLMs
               </Link>
             </div>
           </div>
 
-          {/* GitHub Radar Metrics */}
+          {/* OSS Metrics */}
           <div className="osradar-metrics-strip">
             <div className="osradar-metric-box">
               <span className="osradar-metric-val">450k+</span>
@@ -126,82 +155,83 @@ export function HeroSection() {
             </div>
             <div className="osradar-metric-divider" />
             <div className="osradar-metric-box">
-              <span className="osradar-metric-val">100%</span>
+              <span className="osradar-metric-val">100% Free</span>
               <span className="osradar-metric-desc">Open Source</span>
             </div>
           </div>
         </div>
 
-        {/* Right: Live GitHub Repository Showcase Card */}
-        <div className="osradar-repo-card">
-          <div className="repo-card-header">
-            <div className="repo-title-group">
-              <GitBranch size={16} className="text-purple-400" />
-              <span className="repo-header-title">Trending GitHub Spotlight</span>
+        {/* Right: Trending GitHub Repo Showcase Card */}
+        <div className="osradar-spotlight-card">
+          <div className="spotlight-card-header">
+            <div className="spotlight-title-group">
+              <Star size={15} className="fill-amber-400 text-amber-400" />
+              <span className="spotlight-header-title">GitHub Trending Radar</span>
             </div>
-            <span className="repo-license-badge">{currentRepo.license}</span>
+            <span className="spotlight-license-pill">{currentRepo.license}</span>
           </div>
 
           {/* Repo Switcher Tabs */}
-          <div className="repo-switch-tabs">
-            {TRENDING_REPOS.map((r, idx) => (
+          <div className="spotlight-tabs-row">
+            {TRENDING_REPOS.map((repo, idx) => (
               <button
-                key={r.id}
+                key={repo.id}
                 onClick={() => setActiveRepoIndex(idx)}
-                className={`repo-tab-btn ${activeRepoIndex === idx ? 'active' : ''}`}
+                className={`spotlight-tab-btn ${activeRepoIndex === idx ? 'active' : ''}`}
                 type="button"
               >
-                {r.repo.split('/')[1]}
+                {repo.repo.split('/')[1]}
               </button>
             ))}
           </div>
 
-          {/* Repo Details Window */}
-          <div className="repo-details-box">
-            <div className="repo-name-row">
-              <h3 className="repo-full-name">{currentRepo.repo}</h3>
+          {/* Repo Details Box */}
+          <div className="spotlight-repo-box">
+            <div className="repo-top-row">
+              <span className="repo-full-name">{currentRepo.repo}</span>
               <div className="repo-stats-pills">
-                <span className="repo-stat-item stars">
-                  <Star size={12} className="fill-amber-400 text-amber-400" />
+                <span className="stat-chip">
+                  <Star size={11} className="fill-amber-400 text-amber-400" />
                   {currentRepo.stars}
                 </span>
-                <span className="repo-stat-item forks">
-                  <GitFork size={12} />
+                <span className="stat-chip">
+                  <GitFork size={11} />
                   {currentRepo.forks}
                 </span>
               </div>
             </div>
-
-            <p className="repo-desc-text">{currentRepo.desc}</p>
-
-            <div className="repo-commit-feed">
-              <span className="commit-pulse-dot" />
-              <span className="commit-text">{currentRepo.latestCommit}</span>
-            </div>
+            <p className="repo-tagline-text">{currentRepo.tagline}</p>
           </div>
 
-          {/* Copyable Git Clone Bar */}
-          <div className="repo-clone-bar">
-            <div className="clone-bar-left">
-              <Terminal size={13} className="text-purple-400" />
-              <code className="clone-code-snippet">{currentRepo.cloneCmd}</code>
+          {/* Live Commit Stream preview */}
+          <div className="spotlight-commit-box">
+            <div className="commit-box-top">
+              <span className="commit-dot-pulse" />
+              <span className="commit-label">LIVE GIT ACTIVITY</span>
             </div>
+            <code className="commit-text">{currentRepo.latestCommit}</code>
+          </div>
+
+          {/* Quick Clone Bar */}
+          <div className="spotlight-clone-bar">
+            <span className="clone-prompt">$</span>
+            <code className="clone-cmd-text">{currentRepo.cloneCmd}</code>
             <button 
               onClick={handleCopy} 
               className="clone-copy-btn"
               title="Copy Clone Command"
               type="button"
             >
-              {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-              <span>{copied ? 'Copied' : 'Clone'}</span>
+              {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+              <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
           </div>
 
-          {/* Footer */}
-          <div className="repo-card-footer">
-            <span className="repo-lang-tag">Stack: {currentRepo.language}</span>
-            <Link href="/submit" className="repo-submit-link">
-              Submit Repository <ArrowUpRight size={13} />
+          {/* Card Footer */}
+          <div className="spotlight-card-footer">
+            <span className="spotlight-verified-text">✓ Verified Permissive OSS</span>
+            <Link href="/submit" className="spotlight-submit-link">
+              Submit Repo <ArrowUpRight size={13} />
             </Link>
           </div>
         </div>
